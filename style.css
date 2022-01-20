@@ -50,7 +50,12 @@ body {
     text-align: center;
 }
 
-.active {
+.requested {
+    background-color: red !important;
+    color: white !important;
+}
+
+.pressed {
     background-color: #dd4f1f !important;
     color: white !important;
 }
