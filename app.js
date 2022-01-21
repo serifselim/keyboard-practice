@@ -10,6 +10,7 @@ let isResetting = false
 
 const currentScoreText = document.getElementById('current-score')
 const bestScoreText = document.getElementById('best-score')
+const repeatButton = document.getElementById('repeat')
 
 start()
 
@@ -115,5 +116,6 @@ function keyDisactive() {
     isPressed = false
 } // Key Actions Side
 
+repeatButton.onclick = () => resetGame()
 window.addEventListener('keydown', keyActive)
 window.addEventListener('keyup', keyDisactive)
