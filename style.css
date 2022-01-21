@@ -8,7 +8,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 97vh;
-    background: #dd4f1f;
+    background: #FCF1DA;
 }
 
 .bg {
@@ -19,6 +19,13 @@ body {
     padding: 25px 0 35px 0px;
     display: flex;
     justify-content: center;
+}
+
+.score-board {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 50px;
+    color: #272B2C;
 }
 
 .base {
@@ -40,6 +47,7 @@ body {
     box-shadow: 0px 3px 3px rgba(0, 0, 0, .7);
     color: #dd4f1f;
     padding: 15px;
+    font-weight: bold;
     margin: 0 10px;
     min-width: 50px;
     font-size: 20px;
@@ -50,14 +58,26 @@ body {
     text-align: center;
 }
 
+#repeat {
+    color: #FCF1DA;
+}
+
+#repeat:hover {
+    opacity: .9;
+}
+
+#repeat:active {
+    transform: scale(.9);
+}
+
 .requested {
-    background-color: red !important;
-    color: white !important;
+    background-color: rgb(155, 0, 21) !important;
+    color: #FCF1DA !important;
 }
 
 .pressed {
     background-color: #dd4f1f !important;
-    color: white !important;
+    color: #FCF1DA !important;
 }
 
 .line4 button {

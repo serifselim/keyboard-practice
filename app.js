@@ -7,16 +7,22 @@ const scoreBoard = document.querySelector('.score-board')
 let pressedCharacter
 let isPressed = false
 let requestedCharacter
+let requestedButton
 let score = 0
 
 start()
 
 function start() {
-    updateScoreBoard()
     setNewCharacter()
+    updateScoreBoard()
 } // Game Start Functions
 
-function updateScoreBoard() {
+function updateScoreBoard(checkIsTrue = true) {
+    if (checkIsTrue) {
+        score += Math.floor(Math.random() * 10)
+    } else {
+        score = 0;
+    }
     scoreBoard.textContent = score.toString()
 } // Show Current Score Board
 
@@ -31,20 +37,50 @@ function getNewCharacter() {
 
 function setNewCharacter() {
     requestedCharacter = getNewCharacter()
-    const requestedButton = getButtonWithValue(requestedCharacter)
+    requestedButton = getButtonWithValue(requestedCharacter)
     requestedButton.classList.add('requested')
 } // New Character Functions
+
+function deleteOldCharacter() {
+    requestedButton.classList.remove('requested')
+} // Delete Old Character Function
 
 function checkPressedCharacter(requestedCharacter, pressedCharacter) {
     if (requestedCharacter === pressedCharacter) return true
     else return false
 } // Current Control
 
+function resetGame() {
+    isPressed = true
+    updateScoreBoard(false)
+    KEYCODE_ARRAY.forEach(keyCode => {
+        const eachButton = getButtonWithValue(keyCode)
+        eachButton.classList.remove('pressed')
+        eachButton.classList.add('requested')
+    })
+    setTimeout(() => {
+        isPressed = false
+        KEYCODE_ARRAY.forEach(keyCode => {
+            const eachButton = getButtonWithValue(keyCode)
+            eachButton.classList.remove('pressed')
+            eachButton.classList.remove('requested')
+        })
+        setNewCharacter()
+    }, 1000);
+}
+
 function keyActive(e) {
-    if (!isPressed) {
+    if (!isPressed && KEYCODE_ARRAY.includes(e.keyCode)) {
         pressedCharacter = getButtonWithValue(e.keyCode)
         pressedCharacter.classList.add('pressed')
         const checkIsTrue = checkPressedCharacter(requestedCharacter, e.keyCode)
+        if (checkIsTrue) {
+            updateScoreBoard()
+            deleteOldCharacter()
+            setNewCharacter()
+        } else {
+            resetGame()
+        }
         isPressed = true
     }
 } // Key Actions Side
