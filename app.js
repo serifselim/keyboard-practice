@@ -6,6 +6,7 @@ let pressedCharacter, requestedButton, requestedCharacter
 let isPressed = false
 let currentScore = 0
 let bestScore = 0
+let isResetting = false
 
 const currentScoreText = document.getElementById('current-score')
 const bestScoreText = document.getElementById('best-score')
@@ -66,28 +67,35 @@ function checkPressedCharacter(requestedCharacter, pressedCharacter) {
     else return false
 } // Current Control
 
-function resetGame() {
-    isPressed = true
-    updateBestScore()
-    updateCurrentScore(false)
+function actionAllButtonStyle(actionType) {
     KEYCODE_ARRAY.forEach(keyCode => {
         const eachButton = getButtonWithValue(keyCode)
-        eachButton.classList.remove('pressed')
-        eachButton.classList.add('requested')
+        if (actionType === 'add') eachButton.classList.add('requested')
+        else eachButton.classList.remove('requested')
     })
+} // Action All Button 
+
+function resetGame() {
+    isResetting = true
+    updateBestScore()
+    updateCurrentScore(false)
+    actionAllButtonStyle('add')
+
     setTimeout(() => {
-        isPressed = false
-        KEYCODE_ARRAY.forEach(keyCode => {
-            const eachButton = getButtonWithValue(keyCode)
-            eachButton.classList.remove('pressed')
-            eachButton.classList.remove('requested')
-        })
+        actionAllButtonStyle('remove')
         setNewCharacter()
+        isResetting = false
     }, 1000);
-}
+} // Reset All Game
+
+function addSound() {
+    let audio = new Audio('keyboard.mp3');
+    audio.play();
+} // Add keyboard sound
 
 function keyActive(e) {
-    if (!isPressed && KEYCODE_ARRAY.includes(e.keyCode)) {
+    if (!isPressed && KEYCODE_ARRAY.includes(e.keyCode) && !isResetting) {
+        addSound()
         pressedCharacter = getButtonWithValue(e.keyCode)
         pressedCharacter.classList.add('pressed')
         const checkIsTrue = checkPressedCharacter(requestedCharacter, e.keyCode)
@@ -106,7 +114,6 @@ function keyDisactive() {
     pressedCharacter.classList.remove('pressed')
     isPressed = false
 } // Key Actions Side
-
 
 window.addEventListener('keydown', keyActive)
 window.addEventListener('keyup', keyDisactive)

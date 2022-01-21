@@ -23,10 +23,25 @@ body {
     justify-content: center;
 }
 
+.warning {
+    text-align: center;
+}
+
+.warning span {
+    font-weight: bold;
+    font-size: 40px;
+    color: rgb(155, 0, 21);
+}
+
 .score-div {
     display: flex;
     justify-content: space-between;
     width: 100%;
+    margin-top: 30px;
+}
+
+.score-title {
+    font-size: 35px;
 }
 
 .score-div .score-text {
@@ -90,21 +105,4 @@ body {
 .line4 button {
     width: 35px;
     padding: 10px 15px;
-}
-
-#arrow,
-#backspace,
-#smile,
-#mic {
-    fill: #71D4FE;
-    width: 35px;
-    height: 35px;
-    filter: drop-shadow(0px 2px 20px #dd4f1f)
-}
-
-#arrow:hover,
-#backspace:hover,
-#smile:hover,
-#mic:hover {
-    filter: drop-shadow(0px 2px 15px #71D4FE)
 }
