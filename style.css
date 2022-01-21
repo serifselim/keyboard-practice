@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@300;400;500;600;700&display=swap');
 * {
     margin: 0;
     padding: 0;
@@ -9,6 +10,7 @@ body {
     align-items: center;
     height: 97vh;
     background: #FCF1DA;
+    font-family: 'Inconsolata', monospace;
 }
 
 .bg {
@@ -21,10 +23,15 @@ body {
     justify-content: center;
 }
 
-.score-board {
-    text-align: center;
+.score-div {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.score-div .score-text {
     margin-bottom: 30px;
-    font-size: 50px;
+    font-size: 30px;
     color: #272B2C;
 }
 

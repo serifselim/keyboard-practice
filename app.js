@@ -2,29 +2,45 @@ const KEYCODE_ARRAY = [
     81, 87, 69, 82, 84, 89, 85, 73, 79, 80, 219, 221, 65, 83, 68, 70, 71, 72, 74, 75, 76, 186, 222, 90, 88, 67, 86, 66, 78, 77, 191, 220
 ]
 
-const scoreBoard = document.querySelector('.score-board')
-
-let pressedCharacter
+let pressedCharacter, requestedButton, requestedCharacter
 let isPressed = false
-let requestedCharacter
-let requestedButton
-let score = 0
+let currentScore = 0
+let bestScore = 0
+
+const currentScoreText = document.getElementById('current-score')
+const bestScoreText = document.getElementById('best-score')
 
 start()
 
 function start() {
+    getBestScore()
     setNewCharacter()
-    updateScoreBoard()
+    updateCurrentScore()
 } // Game Start Functions
 
-function updateScoreBoard(checkIsTrue = true) {
-    if (checkIsTrue) {
-        score += Math.floor(Math.random() * 10)
-    } else {
-        score = 0;
+function getBestScore() {
+    const data = JSON.parse(localStorage.getItem('bestScore'))
+    if (data) {
+        bestScore = data
+        bestScoreText.textContent = bestScore.toString()
     }
-    scoreBoard.textContent = score.toString()
+} // Get Value From Local Storage
+
+function updateCurrentScore(checkIsTrue = true) {
+    if (checkIsTrue) {
+        currentScore += Math.floor(Math.random() * 10)
+    } else {
+        currentScore = 0;
+    }
+    currentScoreText.textContent = currentScore.toString()
 } // Show Current Score Board
+
+function updateBestScore() {
+    if (currentScore >= bestScore) {
+        JSON.stringify(localStorage.setItem('bestScore', currentScore))
+        bestScoreText.textContent = currentScore.toString()
+    }
+}
 
 function getButtonWithValue(value) {
     return document.querySelector(`button[value="${value}"]`)
@@ -52,7 +68,8 @@ function checkPressedCharacter(requestedCharacter, pressedCharacter) {
 
 function resetGame() {
     isPressed = true
-    updateScoreBoard(false)
+    updateBestScore()
+    updateCurrentScore(false)
     KEYCODE_ARRAY.forEach(keyCode => {
         const eachButton = getButtonWithValue(keyCode)
         eachButton.classList.remove('pressed')
@@ -75,7 +92,7 @@ function keyActive(e) {
         pressedCharacter.classList.add('pressed')
         const checkIsTrue = checkPressedCharacter(requestedCharacter, e.keyCode)
         if (checkIsTrue) {
-            updateScoreBoard()
+            updateCurrentScore()
             deleteOldCharacter()
             setNewCharacter()
         } else {
