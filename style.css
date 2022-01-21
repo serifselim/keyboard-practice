@@ -41,7 +41,11 @@ body {
 }
 
 .score-title {
-    font-size: 35px;
+    font-size: 30px;
+}
+
+.score-best-div {
+    text-align: right;
 }
 
 .score-div .score-text {
