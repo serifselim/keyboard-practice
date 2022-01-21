@@ -16,7 +16,7 @@ start()
 function start() {
     getBestScore()
     setNewCharacter()
-    updateCurrentScore()
+    updateCurrentScore(false)
 } // Game Start Functions
 
 function getBestScore() {
